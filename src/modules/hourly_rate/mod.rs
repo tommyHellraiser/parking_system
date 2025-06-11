@@ -1,27 +1,14 @@
 use mysql_async::prelude::FromRow;
 
+use crate::get_from_row;
+
 pub type HourlyRateIdType = u64;
 
 #[derive(Debug)]
 pub struct HourlyRate {
     pub id: HourlyRateIdType,
     pub name: String,
-    pub rate: f32,
-}
-
-macro_rules! get_from_row {
-    ($row: expr, $type: ty, $col_name: literal, $table_name: expr) => {
-        match $row.get::<$type, _>($col_name) {
-            Some(field) => field,
-            None => {
-                let msg = format!(
-                    "Couldn't get field {} from table {}",
-                    $col_name, $table_name
-                );
-                std::panic::panic_any(msg);
-            }
-        }
-    };
+    pub rate: f64,
 }
 
 impl FromRow for HourlyRate {
@@ -33,7 +20,7 @@ impl FromRow for HourlyRate {
         Self {
             id: get_from_row!(row, HourlyRateIdType, "ID", table_name),
             name: get_from_row!(row, String, "name", table_name),
-            rate: get_from_row!(row, f32, "rate", table_name),
+            rate: get_from_row!(row, f64, "rate", table_name),
         }
     }
 

@@ -513,6 +513,7 @@ dependencies = [
  "iana-time-zone",
  "js-sys",
  "num-traits",
+ "serde",
  "wasm-bindgen",
  "windows-link",
 ]
@@ -1709,6 +1710,7 @@ dependencies = [
  "btoi",
  "byteorder",
  "bytes",
+ "chrono",
  "crc32fast",
  "flate2",
  "getrandom 0.3.3",
@@ -1873,6 +1875,7 @@ name = "parking_system"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "chrono",
  "error_mapper",
  "mysql_async 0.36.1",
  "serde_json",

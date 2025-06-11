@@ -1,7 +1,7 @@
 use crate::api::STOP_SENDER;
 use actix_web::{HttpResponse, get, put, web::ServiceConfig};
 
-pub(super) fn service_router(cfg: &mut ServiceConfig) {
+pub(in super::super) fn service_router(cfg: &mut ServiceConfig) {
     cfg.service(alive).service(stop);
 }
 

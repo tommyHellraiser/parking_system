@@ -3,7 +3,7 @@ use error_mapper::{TheResult, create_new_error};
 use std::sync::OnceLock;
 use tokio::sync::mpsc::{Receiver, Sender};
 
-mod life_services;
+mod services;
 
 static STOP_SENDER: OnceLock<Sender<()>> = OnceLock::new();
 const SERVER_BIND: (&str, u16) = ("127.0.0.1", 8090);
@@ -14,7 +14,7 @@ pub async fn init_api() -> TheResult<()> {
     let _ = STOP_SENDER.get_or_init(|| sender);
 
     let server = HttpServer::new(|| {
-        App::new().service(web::scope("/api").configure(life_services::service_router))
+        App::new().service(web::scope("/api").configure(services::life::service_router))
     })
     .bind(SERVER_BIND)
     .map_err(|error| create_new_error!(error))?
